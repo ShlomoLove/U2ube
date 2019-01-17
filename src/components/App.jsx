@@ -2,6 +2,9 @@ import VideoList from './VideoList.js';
 import Search from './Search.js';
 import VideoPlayer from './VideoPlayer.js';
 import exampleVideoData from '../data/exampleVideoData.js';
+import searchYouTube from '../lib/searchYouTube.js';
+import YOUTUBE_API_KEY from '../../src/config/youtube.js';
+
 
 class App extends React.Component {
   constructor(props) {
@@ -9,22 +12,37 @@ class App extends React.Component {
 
     this.state = {
       playing: exampleVideoData[0],
-      list: exampleVideoData
+      list: exampleVideoData,
     }
+
+    this.handleVideoClick = this.handleVideoClick.bind(this);
+    this.handleSearch = this.handleSearch.bind(this);
   }
+
+  componentDidMount() {
+    console.log (this.props, 'props')
+    // Search.searchButtonClick.bind(this,'Dodgers')
+  }
+
   handleVideoClick(video) {
-    console.log('handling click');
     this.setState ({
       playing: video,
     })
   } 
+
+  handleSearch(videoList) {
+    this.setState ({
+      playing: videoList[0],
+      list: videoList,
+    })
+  }
 
   render() {
     return (
       <div>
         <nav className="navbar">
           <div className="col-md-6 offset-md-3">
-            <Search />
+            <Search handleSearch={this.handleSearch.bind(this)}/>
           </div>
         </nav>
         <div className="row">
