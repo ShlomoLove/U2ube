@@ -6,7 +6,7 @@ class Search extends React.Component {
       searchResults: []
     };
   }
-youTubeSearch(input) {
+searchYouTube(input) {
   //get the input from the search bar
   //query YouTube 
   // ajax method to query YouTube
