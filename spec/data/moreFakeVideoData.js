@@ -5,7 +5,7 @@ window.moreFakeVideoData = [{
     videoId: '000006'
   },
   snippet: {
-    title: 'JavaScript Jabber',
+    title: 'Learn React - React Crash Course 2018 - …ith Examples | Mosh',
     description: 'Here us jab about JavaScript',
     thumbnails: {
       default: {

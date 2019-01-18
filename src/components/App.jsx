@@ -1,10 +1,8 @@
-import VideoList from './VideoList.js';
 import Search from './Search.js';
+import VideoList from './VideoList.js';
 import VideoPlayer from './VideoPlayer.js';
-import exampleVideoData from '../data/exampleVideoData.js';
 import searchYouTube from '../lib/searchYouTube.js';
-// import YOUTUBE_API_KEY from '../../src/config/youtube.js';
-
+import exampleVideoData from '../data/exampleVideoData.js';
 
 class App extends React.Component {
   constructor(props) {
@@ -15,25 +13,19 @@ class App extends React.Component {
       list: exampleVideoData,
     };
 
-    
-    // this.props.searchYouTube = this.props.searchYouTube.bind(this);
     this.handleVideoClick = this.handleVideoClick.bind(this);
     this.handleSearch = this.handleSearch.bind(this);
     this.handleInput = this.handleInput.bind(this);
   }                                                                                                                                                                                                                                               
 
   componentDidMount() {
-    console.log (this.props, 'props');
-    // Search.searchButtonClick.bind(this,'Dodgers')
     let options = {
       key: this.props.APIkey,
-      query: 'Cute cat',
+      query: 'U2 BK Garceau',
       max: 5
     };
-
   
     this.props.searchYouTube.call(this, options, (data) => {
-      console.log(data, 'component did mount');
       this.handleSearch(data);
     });
   }
@@ -47,7 +39,6 @@ class App extends React.Component {
   handleInput(videoList) {
     this.setState ({
       list: videoList,
-      // playing: videoList[0]
     });
   }
 

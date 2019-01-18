@@ -16,16 +16,7 @@ class Search extends React.Component {
 
 
   searchInput(input) {
-    console.log (input.target.value, 'input searchInput');
     input = input.target.value;
-    //get the input from the search bar
-    //query YouTube 
-    // ajax method to query YouTube
-    //listening at the search bar
-    //get the information
-    //parse the string
-    //iterate through the object
-
     this.setState ({ 
       query: input
     });
@@ -42,13 +33,8 @@ class Search extends React.Component {
 
   } 
 
-  searchButtonClick(input) {
-    console.log (this.state.query, 'input');
-    if (input) {
-      input = input;
-    } else {
-      input = this.state.query;
-    }
+  searchButtonClick() {
+ 
     let searchInfo = {
       key: YOUTUBE_API_KEY,
       query: this.state.query,
@@ -57,10 +43,6 @@ class Search extends React.Component {
 
     searchYouTube(searchInfo, (data) => {
       this.props.handleSearch(data);
-      // this.setState ({
-      //   playing: data.items[0],
-      //   list: data
-      // })
     });
   }
 
