@@ -3,7 +3,7 @@ import Search from './Search.js';
 import VideoPlayer from './VideoPlayer.js';
 import exampleVideoData from '../data/exampleVideoData.js';
 import searchYouTube from '../lib/searchYouTube.js';
-import YOUTUBE_API_KEY from '../../src/config/youtube.js';
+// import YOUTUBE_API_KEY from '../../src/config/youtube.js';
 
 
 class App extends React.Component {
@@ -13,28 +13,49 @@ class App extends React.Component {
     this.state = {
       playing: exampleVideoData[0],
       list: exampleVideoData,
-    }
+    };
 
+    
+    // this.props.searchYouTube = this.props.searchYouTube.bind(this);
     this.handleVideoClick = this.handleVideoClick.bind(this);
     this.handleSearch = this.handleSearch.bind(this);
-  }
+    this.handleInput = this.handleInput.bind(this);
+  }                                                                                                                                                                                                                                               
 
   componentDidMount() {
-    console.log (this.props, 'props')
+    console.log (this.props, 'props');
     // Search.searchButtonClick.bind(this,'Dodgers')
+    let options = {
+      key: this.props.APIkey,
+      query: 'Cute cat',
+      max: 5
+    };
+
+  
+    this.props.searchYouTube.call(this, options, (data) => {
+      console.log(data, 'component did mount');
+      this.handleSearch(data);
+    });
   }
 
   handleVideoClick(video) {
     this.setState ({
       playing: video,
-    })
+    });
   } 
+
+  handleInput(videoList) {
+    this.setState ({
+      list: videoList,
+      // playing: videoList[0]
+    });
+  }
 
   handleSearch(videoList) {
     this.setState ({
       playing: videoList[0],
       list: videoList,
-    })
+    });
   }
 
   render() {
@@ -42,7 +63,9 @@ class App extends React.Component {
       <div>
         <nav className="navbar">
           <div className="col-md-6 offset-md-3">
-            <Search handleSearch={this.handleSearch.bind(this)}/>
+            <Search
+              handleInput={this.handleInput}
+              handleSearch={this.handleSearch}/>
           </div>
         </nav>
         <div className="row">
@@ -51,8 +74,8 @@ class App extends React.Component {
           </div>
           <div className="col-md-5">
             <VideoList
-            handleVideoClick={this.handleVideoClick.bind(this)} 
-            videos={this.state.list}/>
+              handleVideoClick={this.handleVideoClick} 
+              videos={this.state.list}/>
           </div>
         </div>
       </div>

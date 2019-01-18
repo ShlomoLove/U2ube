@@ -1,5 +1,5 @@
 var searchYouTube = (options, callback) => {
-  let url = 'https://www.googleapis.com/youtube/v3/search'
+  let url = 'https://www.googleapis.com/youtube/v3/search';
   $.ajax({
     url: url,
     type: 'GET',
@@ -9,12 +9,13 @@ var searchYouTube = (options, callback) => {
       q: options.query,
       maxResults: options.max,
       type: 'video',
+      videoEmbeddable: true
     },
 
     success: data => { callback(data.items); },
-    error: err => {console.log(err, 'err')}
+    error: err => { console.log(err, 'err'); }
    
-  })
+  });
 };
 
 export default searchYouTube;

@@ -9,10 +9,15 @@ class Search extends React.Component {
       query: '',
       searchResults: []
     };
+
+    this.searchButtonClick = this.searchButtonClick.bind(this);
+    this.searchInput = this.searchInput.bind(this);
   }
 
+
   searchInput(input) {
-    input = input.target.value
+    console.log (input.target.value, 'input searchInput');
+    input = input.target.value;
     //get the input from the search bar
     //query YouTube 
     // ajax method to query YouTube
@@ -25,14 +30,6 @@ class Search extends React.Component {
       query: input
     });
 
-  } 
-
-  searchButtonClick(input) {
-    if (input) {
-      input = input
-    } else {
-      input = this.state.query
-    }
     let searchInfo = {
       key: YOUTUBE_API_KEY,
       query: input,
@@ -40,7 +37,30 @@ class Search extends React.Component {
     };
 
     searchYouTube(searchInfo, (data) => {
+      this.props.handleInput(data);
+    });
+
+  } 
+
+  searchButtonClick(input) {
+    console.log (this.state.query, 'input');
+    if (input) {
+      input = input;
+    } else {
+      input = this.state.query;
+    }
+    let searchInfo = {
+      key: YOUTUBE_API_KEY,
+      query: this.state.query,
+      max: 5
+    };
+
+    searchYouTube(searchInfo, (data) => {
       this.props.handleSearch(data);
+      // this.setState ({
+      //   playing: data.items[0],
+      //   list: data
+      // })
     });
   }
 
@@ -48,8 +68,8 @@ class Search extends React.Component {
   render() {
     return (
       <div className="search-bar form-inline">
-        <input className="form-control" type="text" onChange={ this.searchInput.bind(this) } />
-        <button className="btn hidden-sm-down" onClick={ this.searchButtonClick.bind(this) }>
+        <input className="form-control" type="text" onChange={ this.searchInput } />
+        <button className="btn hidden-sm-down" onClick={ this.searchButtonClick }>
           <span className="glyphicon glyphicon-search"></span>
         </button>
       </div> 
